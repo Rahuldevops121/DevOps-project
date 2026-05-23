@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Docker
+.env
+
+# Logs
+*.log
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
