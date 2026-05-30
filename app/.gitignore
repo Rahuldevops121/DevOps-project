@@ -1,5 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+
+# Node
 node_modules/
-dist/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+
+# Docker
 .env
+.env.*
+!.env.example        # ← allow the example file
+
+# K8s secrets (never commit real secrets)
+k8s/secret.yaml
+k8s/*-secret.yaml
+
+# Logs
 *.log
-coverage/
+
+# VSCode
+.vscode/
+
+# OS
+.DS_Store
