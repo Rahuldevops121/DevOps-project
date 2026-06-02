@@ -17,9 +17,6 @@ nodemon.json
 .git/
 .gitignore
 
-# Docker files themselves
-Dockerfile*
-docker-compose*
 # Logs
 logs/
 *.log

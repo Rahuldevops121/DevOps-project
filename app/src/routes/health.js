@@ -9,6 +9,11 @@ const httpRequestDuration = new client.Histogram({
   help: 'Duration of HTTP requests in seconds',
   labelNames: ['method', 'route', 'status_code'],
 });
+const httpRequestsTotal = new client.Counter({
+  name: 'http_requests_total',
+  help: 'Total number of HTTP requests',
+  labelNames: ['method', 'route', 'status'],
+});
 
 router.get('/health', (req, res) => {
   res.status(200).json({
@@ -32,4 +37,4 @@ router.get('/metrics', async (req, res) => {
   }
 });
 
-module.exports = { router, httpRequestDuration };
+module.exports = { router, httpRequestDuration, httpRequestsTotal };
