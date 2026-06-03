@@ -1,0 +1,50 @@
+name: CD — Deploy to Kubernetes
+
+on:
+  workflow_run:
+    workflows: ["CI — Build & Push"]
+    types: [completed]
+    branches: [main]
+
+jobs:
+  deploy:
+    name: Deploy to K8s
+    runs-on: self-hosted
+    environment: production
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.29.0'
+
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Get short SHA
+        id: sha
+        run: echo "tag=$(echo ${{ github.event.workflow_run.head_sha }} | cut -c1-7)" >> $GITHUB_OUTPUT
+
+      - name: Deploy to Kubernetes
+        env:
+          IMAGE_TAG: ${{ steps.sha.outputs.tag }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        run: |
+          chmod +x scripts/deploy.sh
+          ./scripts/deploy.sh
+
+      - name: Verify rollout
+        run: |
+          kubectl rollout status deployment/devops-platform-app \
+            -n devops-platform --timeout=120s
+
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          chmod +x scripts/rollback.sh
+          ./scripts/rollback.sh
