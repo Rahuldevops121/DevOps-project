@@ -18,6 +18,7 @@ node_modules/
 # K8s secrets (never commit real secrets)
 k8s/secret.yaml
 k8s/*-secret.yaml
+k8s/secrets.yaml
 
 # Logs
 *.log
