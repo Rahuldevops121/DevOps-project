@@ -20,7 +20,7 @@ jobs:
           docker build -f docker/Dockerfile -t scan-target:latest .
 
       - name: Run Trivy vulnerability scan
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@0.24.0
         with:
           image-ref: 'scan-target:latest'
           format: 'sarif'
@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Run Trivy filesystem scan
-        uses: aquasecurity/trivy-action@0.29.0
+        uses: aquasecurity/trivy-action@0.24.0
         with:
           scan-type: 'fs'
           scan-ref: '.'
