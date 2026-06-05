@@ -1,9 +1,9 @@
 # ---- Build Stage ----
 FROM node:20-alpine AS builder
 WORKDIR /app
-COPY app/package*.json ./
+COPY package*.json ./
 RUN npm ci --omit=dev
-COPY app/ .
+COPY . .
 
 # ---- Runtime Stage ----
 FROM node:20-alpine AS runner
