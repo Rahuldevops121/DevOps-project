@@ -4,10 +4,9 @@ metadata:
   name: devops-platform-svc
   namespace: devops-platform
 spec:
+  type: LoadBalancer      # ← change this
   selector:
     app: devops-platform-app
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000
-  type: ClusterIP
+  - port: 80
+    targetPort: 3000
