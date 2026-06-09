@@ -24,10 +24,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ success: false, message: 'Internal Server Error' });
 });
 
-app.listen(config.port, () => {
+const server = app.listen(config.port, () => {
   logger.info(`🚀 ${config.appName} running on port ${config.port}`);
   logger.info(`📊 Metrics: http://localhost:${config.port}/metrics`);
   logger.info(`🛠️  API: http://localhost:${config.port}/api/v1/info`);
 });
 
-module.exports = app;
+module.exports = { app, server };

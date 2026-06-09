@@ -1,3 +1,4 @@
+const { itemsCreated } = require('../metrics/customMetrics');
 const express = require('express');
 const router = express.Router();
 const logger = require('../middleware/logger');
@@ -24,7 +25,10 @@ router.get('/items', (req, res) => {
 
 router.post('/items', (req, res) => {
   const { name } = req.body;
-  if (!name) return res.status(400).json({ success: false, message: 'Name is required' });
+  if (!name) {
+    return res.status(400).json({ success: false, message: 'Name is required' });
+}
+itemsCreated.inc();
   res.status(201).json({ success: true, data: { id: Date.now(), name, status: 'active' } });
 });
 
