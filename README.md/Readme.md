@@ -260,7 +260,44 @@ trivy image devops-platform-app:latest
 
 ```bash
 ./monitoring/install.sh
+
 ```
+
+## Grafana as Code
+
+Grafana configuration is managed through provisioning files and stored in Git.
+
+### Datasource Provisioning
+
+```text
+monitoring/grafana/provisioning/datasources/
+```
+
+Automatically configures Prometheus as the default datasource.
+
+### Dashboard Provisioning
+
+```text
+monitoring/grafana/provisioning/dashboards/
+```
+
+Automatically imports dashboards during Grafana startup.
+
+### Dashboard Storage
+
+```text
+monitoring/grafana/dashboards/
+```
+
+Contains exported dashboard JSON definitions.
+
+### Benefits
+
+* Infrastructure as Code
+* Version Controlled Dashboards
+* Automated Grafana Setup
+* Reproducible Monitoring Environment
+
 
 ## Monitoring Features
 
