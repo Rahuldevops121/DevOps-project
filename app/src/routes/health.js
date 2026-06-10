@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const client = require('prom-client');
 
-client.collectDefaultMetrics({ timeout: 5000 });
+client.collectDefaultMetrics();
 
 const httpRequestDuration = new client.Histogram({
   name: 'http_request_duration_seconds',
