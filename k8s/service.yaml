@@ -1,12 +1,19 @@
 apiVersion: v1
 kind: Service
+
 metadata:
   name: devops-platform-svc
   namespace: devops-platform
+  labels:
+    app: devops-platform-app
+
 spec:
-  type: LoadBalancer      # ← change this
+  type: LoadBalancer
+
   selector:
     app: devops-platform-app
+
   ports:
-  - port: 80
-    targetPort: 3000
+    - name: http
+      port: 80
+      targetPort: 3000
