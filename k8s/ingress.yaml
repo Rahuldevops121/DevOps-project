@@ -3,12 +3,12 @@ kind: Ingress
 metadata:
   name: devops-platform-ingress
   namespace: devops-platform
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+
 spec:
   ingressClassName: nginx
+
   rules:
-    - host: devops-platform.local   # replace with your domain
+    - host: devops-platform.local
       http:
         paths:
           - path: /
