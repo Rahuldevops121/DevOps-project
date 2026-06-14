@@ -19,21 +19,32 @@ spec:
     metadata:
       labels:
         app: devops-platform-app
-      annotations:                              
-        prometheus.io/scrape: "true"            # tells Prometheus to scrape this pod
-        prometheus.io/path: "/metrics"          # metrics endpoint
-        prometheus.io/port: "3000"              # app port
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "3000"
     spec:
       containers:
         - name: app
           image: rahuldock44/devops-platform-app:latest
           ports:
             - containerPort: 3000
+          env:
+            - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+              value: "http://jaeger-collector.monitoring.svc.cluster.local:4318/v1/traces"
+            - name: OTEL_SERVICE_NAME
+              value: "devops-platform-app"
+            - name: SERVICE_NAME
+              value: "devops-platform-app"
+            - name: SERVICE_VERSION
+              value: "1.0.0"
+            - name: NODE_ENV
+              value: "production"
           envFrom:
             - configMapRef:
                 name: devops-platform-config
             - secretRef:
-                name: devops-platform-secrets   # all secrets injected as env vars
+                name: devops-platform-secrets
           resources:
             requests:
               cpu: "100m"
@@ -49,7 +60,7 @@ spec:
             periodSeconds: 20
           readinessProbe:
             httpGet:
-              path: /health              
+              path: /health
               port: 3000
             initialDelaySeconds: 5
             periodSeconds: 10
