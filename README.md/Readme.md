@@ -361,3 +361,10 @@ NodeJS App
  └── Logs ───────► Fluent Bit ───► Elasticsearch ───► 
 
 
+
+## Observability Stack
+- **Metrics**: Prometheus + Grafana with custom dashboards and Slack alerting
+- **Tracing**: Jaeger with OpenTelemetry auto-instrumentation
+- **Logging**: Fluent Bit → Elasticsearch → Kibana
+
+See `monitoring/` for all configuration and `monitoring/install.sh` for one-command setup.
