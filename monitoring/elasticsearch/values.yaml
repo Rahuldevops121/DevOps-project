@@ -1,0 +1,18 @@
+---
+replicas: 1
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi
+
+esJavaOpts: "-Xmx400m -Xms400m"
+
+clusterHealthCheckParams: "wait_for_status=yellow&timeout=1s"
+
+esConfig:
+  elasticsearch.yml: |
+    cluster.routing.allocation.disk.threshold_enabled: false
