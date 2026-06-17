@@ -1,0 +1,36 @@
+---
+config:
+  filters: |
+    [FILTER]
+        Name          grep
+        Match         *
+        Exclude       log /health
+        
+    [FILTER]
+        Name          grep
+        Match         *
+        Exclude       log /ready
+        
+    [FILTER]
+        Name          grep
+        Match         *
+        Exclude       log /metrics
+
+  outputs: |
+    [OUTPUT]
+        Name              es
+        Match             *
+        Host              elasticsearch-master
+        Port              9200
+        HTTP_User         elastic
+        HTTP_Passwd       ${ELASTIC_PASSWORD}
+        tls               On
+        tls.verify        Off
+        Logstash_Format   On
+        Logstash_Prefix   fluent-bit
+        Suppress_Type_Name On
+        Retry_Limit       False
+
+extraEnvFrom:
+  - secretRef:
+      name: elasticsearch-master-credentials
