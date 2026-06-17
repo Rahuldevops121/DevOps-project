@@ -19,12 +19,27 @@ spec:
     metadata:
       labels:
         app: devops-platform-app
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "3000"
     spec:
       containers:
         - name: app
-          image: rahuldock44/devops-platform-app:latest  # replaced by deploy.sh
+          image: rahuldock44/devops-platform-app:latest
           ports:
             - containerPort: 3000
+          env:
+            - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+              value: "http://jaeger-collector.monitoring.svc.cluster.local:4318/v1/traces"
+            - name: OTEL_SERVICE_NAME
+              value: "devops-platform-app"
+            - name: SERVICE_NAME
+              value: "devops-platform-app"
+            - name: SERVICE_VERSION
+              value: "1.0.0"
+            - name: NODE_ENV
+              value: "production"
           envFrom:
             - configMapRef:
                 name: devops-platform-config
