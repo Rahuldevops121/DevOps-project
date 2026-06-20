@@ -1,0 +1,40 @@
+---
+provisionDataStore:
+  cassandra: false
+  elasticsearch: false
+  kafka: false
+
+# Use in-memory storage for Minikube (use elasticsearch for production)
+allInOne:
+  enabled: true
+  image: jaegertracing/all-in-one:1.56
+  args:
+    - "--memory.max-traces=50000"
+    - "--query.base-path=/jaeger"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+storage:
+  type: memory
+
+agent:
+  enabled: false   # all-in-one includes agent
+
+collector:
+  enabled: false   # all-in-one includes collector
+
+query:
+  enabled: false   # all-in-one includes query UI
+
+ingester:
+  enabled: false
+
+# Expose the UI and collector ports
+service:
+  type: ClusterIP
+

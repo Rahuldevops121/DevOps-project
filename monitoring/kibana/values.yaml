@@ -1,0 +1,11 @@
+---
+elasticsearchHosts: "https://elasticsearch-master:9200"
+
+protocol: http
+
+extraEnvs:
+  - name: ELASTICSEARCH_HOSTS
+    value: "https://elasticsearch-master:9200"
+
+  - name: ELASTICSEARCH_SSL_VERIFICATIONMODE
+    value: none
