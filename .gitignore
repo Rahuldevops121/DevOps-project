@@ -27,3 +27,13 @@ k8s/*-secret.yaml
 
 # OS
 .DS_Store
+coverage/
+node_modules/
+# Node
+app/node_modules/
+app/coverage/
+node_modules/
+
+# Secrets
+k8s/secrets.yaml
+docker/.env
