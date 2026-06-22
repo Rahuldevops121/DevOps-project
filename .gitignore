@@ -6,7 +6,6 @@ __pycache__/
 node_modules/
 
 # Terraform
-.terraform/
 *.tfstate
 *.tfstate.backup
 
