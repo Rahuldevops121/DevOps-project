@@ -1,0 +1,29 @@
+# Dependencies (reinstalled during build)
+node_modules/
+npm-debug.log
+
+# Test files
+coverage/
+*.test.js
+jest.config.js
+
+# Dev config
+.env
+.env.*
+nodemon.json
+.eslintrc*
+
+# Git
+.git/
+.gitignore
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# CI/CD
+.github/
